@@ -1,0 +1,83 @@
+#!/bin/bash -e
+# Print a random joke on the command-line from the icanhazdadjoke.com API
+# Author: C Gillatt | https://github.com/chris-gillatt | Provided under the MIT license 
+
+fetch_joke() {
+    JOKE=$(curl -sH "Accept: text/plain" https://icanhazdadjoke.com/)
+    echo "$JOKE"
+} # End fetch_joke
+
+# Print a joke with selected options
+print_joke() {
+    local JOKE="$1"
+    local COLOUR="$2"
+    local LARGE_FONT="$3"
+    local SPEECH_BUBBLE="$4"
+
+    local COWSAY_PATH=$(find /opt/homebrew/Cellar/cowsay -type d -name 'cows')/
+
+    if [[ "$SPEECH_BUBBLE" == "true" ]]; then
+        if [ -d "$COWSAY_PATH" ]; then
+            if [[ "$COLOUR" == "true" ]]; then
+                if [[ "$LARGE_FONT" == "true" ]]; then
+                    echo "$JOKE" | figlet | lolcat | cowsay -n -f "$(ls "$COWSAY_PATH" | grep "\.cow" | shuf -n 1)" | lolcat
+                else
+                    echo "$JOKE" | cowsay -n -f "$(ls "$COWSAY_PATH" | grep "\.cow" | shuf -n 1)" | lolcat
+                fi
+            else
+                if [[ "$LARGE_FONT" == "true" ]]; then
+                    echo "$JOKE" | figlet | cowsay -n -f "$(ls "$COWSAY_PATH" | grep "\.cow" | shuf -n 1)"
+                else
+                    echo "$JOKE" | cowsay -n -f "$(ls "$COWSAY_PATH" | grep "\.cow" | shuf -n 1)"
+                fi
+            fi
+        else
+            echo "Error: Cowsay cowfiles directory not found at $COWSAY_PATH"
+        fi
+    elif [[ "$COLOUR" == "true" ]]; then
+        if [[ "$LARGE_FONT" == "true" ]]; then
+            echo "$JOKE" | figlet | lolcat
+        else
+            echo "$JOKE" | lolcat
+        fi
+    elif [[ "$LARGE_FONT" == "true" ]]; then
+        echo "$JOKE" | figlet
+    else
+        echo "$JOKE"
+    fi
+} # End print_joke
+
+# Initialize flags
+COLOUR="false"
+LARGE_FONT="false"
+SPEECH_BUBBLE="false"
+
+# Usage function
+usage() {
+
+echo "Usage: $(basename $0) [-h] [-c] [-l] [-s]
+
+Print a random joke on the command-line from the icanhazdadjoke.com API
+
+Options:
+    -h    Show help message
+    -c    Print a joke in multi-colour
+    -l    Print a joke in large font
+    -s    Print a joke inside a speech bubble with a random character"
+} # End usage
+
+# Parse command line flags
+while getopts "clsh" opt; do
+    case ${opt} in
+        c ) COLOUR="true";;
+        l ) LARGE_FONT="true";;
+        s ) SPEECH_BUBBLE="true";;
+        h ) usage; exit 0 ;;
+        \? ) usage; exit 1 ;;
+    esac
+done
+# Fetch a random joke
+JOKE=$(fetch_joke)
+
+# Print the joke with options selected
+print_joke "$JOKE" "$COLOUR" "$LARGE_FONT" "$SPEECH_BUBBLE"
