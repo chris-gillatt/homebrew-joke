@@ -1,9 +1,9 @@
 class Joke < Formula
   desc "Prints a random joke on the command-line"
   homepage "https://github.com/chris-gillatt/homebrew-joke"
-  url "https://github.com/chris-gillatt/homebrew-joke/releases/download/v0.0.3/joke-0.0.3.tar.gz"
-  sha256 "1a957cd2c75f865f1b5350287364312604a2cceab761116b9d213642a3c803af"
-  version "0.0.3"
+  url "https://github.com/chris-gillatt/homebrew-joke/releases/download/v0.0.4/joke-0.0.4.tar.gz"
+  sha256 "a741e379d195a7e27c053cff011d1232b4dc642e3cd33c0d0fb541c913a0e0cd"
+  version "0.0.4"
 
   depends_on "curl"
   depends_on "figlet"
