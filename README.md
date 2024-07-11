@@ -1,7 +1,10 @@
 # [![CI](https://github.com/chris-gillatt/homebrew-joke/actions/workflows/ci.yml/badge.svg)](https://github.com/chris-gillatt/homebrew-joke/actions/workflows/ci.yml) Joke
 Prints a random joke on the command-line from the icanhazdadjoke.com API.  Supports some optional formatting. Combinations of formats are supported.
 
-Created for the purposes of demonstrating how to [distribute tools with Brew & GitHub Actions](https://howinteresting.co.uk/blog/2024-05-15-distributing-tools-with-brew-and-github-actions), which can be read [on my personal blog](https://howinteresting.co.uk) if you're interested. 
+Created for the purposes of demonstrating how to distribute tools with Brew & GitHub Actions, a two part piece which can be read [on my personal blog](https://howinteresting.co.uk) here:
+
+- [Distributing Tools with Brew & Github Actions Part I](https://howinteresting.co.uk/blog/2024-05-15-distributing-tools-with-brew-and-github-actions-part-i/)
+- [Distributing Tools with Brew & Github Actions Part II](https://howinteresting.co.uk/blog/2024-05-15-distributing-tools-with-brew-and-github-actions-part-ii)
 
 ![joke](images/joker.png "Joker")
 
